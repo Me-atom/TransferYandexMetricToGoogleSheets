@@ -26,7 +26,7 @@ if __name__ == "__main__":
         "api_field_list": visit_field_list,
         "google_sheet_url": os.getenv("VISIT_SHEET_URL")
     }]
-    googlec = service_account()
+    gc = service_account()
 
     for data_elem in data_list:
         data = get_log_data(api_host_url,
@@ -37,6 +37,6 @@ if __name__ == "__main__":
                             end_date,
                             data_elem["api_field_list"])
 
-        sh = googlec.open_by_url(data_elem["google_sheet_url"])
+        sh = gc.open_by_url(data_elem["google_sheet_url"])
         sh.sheet1.update([data.columns.values.tolist()]
                          + data.fillna("Unknown").values.tolist())
